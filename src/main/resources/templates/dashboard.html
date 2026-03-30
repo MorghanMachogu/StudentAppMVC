@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f4f8; }
+        .navbar { background: linear-gradient(90deg, #1a237e, #283593); }
+        .navbar-brand, .nav-link { color: #fff !important; }
+        .stat-card {
+            border: none;
+            border-radius: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.15); }
+        .stat-icon { font-size: 3.5rem; opacity: 0.85; }
+        .card-blue  { background: linear-gradient(135deg, #1565C0, #1E88E5); color: white; }
+        .card-green { background: linear-gradient(135deg, #2E7D32, #43A047); color: white; }
+        .card-amber { background: linear-gradient(135deg, #E65100, #FB8C00); color: white; }
+        .quick-link { border-radius: 12px; transition: background 0.2s; }
+        .quick-link:hover { background-color: #e8eaf6; }
+        footer { background: #1a237e; color: #cfd8dc; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="/">StudentManage</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="/"><i class="bi bi-house me-1"></i>Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/students"><i class="bi bi-people me-1"></i>Students</a></li>
+                <li class="nav-item"><a class="nav-link" href="/courses"><i class="bi bi-book me-1"></i>Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/registrations"><i class="bi bi-journal-check me-1"></i>Registrations</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container pb-5">
+
+    <!-- Page Title -->
+    <div class="mb-4">
+        <h2 class="fw-bold text-dark">Welcome to UniManage</h2>
+        <p class="text-muted">Student Course Registration &amp; Management System — Overview</p>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card stat-card card-blue p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-1 opacity-75 text-uppercase small fw-semibold">Total Students</p>
+                        <h1 class="fw-bold display-5" th:text="${totalStudents}">0</h1>
+                        <a href="/students" class="text-white-50 small">View all students →</a>
+                    </div>
+                    <i class="bi bi-people-fill stat-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card card-green p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-1 opacity-75 text-uppercase small fw-semibold">Total Courses</p>
+                        <h1 class="fw-bold display-5" th:text="${totalCourses}">0</h1>
+                        <a href="/courses" class="text-white-50 small">View all courses →</a>
+                    </div>
+                    <i class="bi bi-book-fill stat-icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card stat-card card-amber p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="mb-1 opacity-75 text-uppercase small fw-semibold">Total Registrations</p>
+                        <h1 class="fw-bold display-5" th:text="${totalRegistrations}">0</h1>
+                        <a href="/registrations" class="text-white-50 small">View registrations →</a>
+                    </div>
+                    <i class="bi bi-journal-check stat-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <h5 class="fw-semibold text-muted text-uppercase mb-3">Quick Actions</h5>
+    <div class="row g-3">
+        <div class="col-md-3">
+            <a href="/students/add" class="text-decoration-none">
+                <div class="card quick-link p-3 d-flex flex-row align-items-center gap-3">
+                    <i class="bi bi-person-plus-fill fs-3 text-primary"></i>
+                    <span class="fw-semibold text-dark">Add New Student</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/courses/add" class="text-decoration-none">
+                <div class="card quick-link p-3 d-flex flex-row align-items-center gap-3">
+                    <i class="bi bi-plus-circle-fill fs-3 text-success"></i>
+                    <span class="fw-semibold text-dark">Add New Course</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/registrations/register" class="text-decoration-none">
+                <div class="card quick-link p-3 d-flex flex-row align-items-center gap-3">
+                    <i class="bi bi-clipboard-plus-fill fs-3 text-warning"></i>
+                    <span class="fw-semibold text-dark">Register for Course</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="/registrations" class="text-decoration-none">
+                <div class="card quick-link p-3 d-flex flex-row align-items-center gap-3">
+                    <i class="bi bi-search fs-3 text-secondary"></i>
+                    <span class="fw-semibold text-dark">View Registrations</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

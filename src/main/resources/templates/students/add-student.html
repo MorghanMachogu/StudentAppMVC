@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student | StudentManage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body { background-color: #f0f4f8; }
+        .navbar { background: linear-gradient(90deg, #1a237e, #283593); }
+        .navbar-brand, .nav-link { color: #fff !important; }
+        .form-card { border: none; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/"><i class="bi bi-mortarboard-fill me-2"></i>UniManage</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-1"></i>Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/students"><i class="bi bi-people me-1"></i>Students</a></li>
+                <li class="nav-item"><a class="nav-link" href="/courses"><i class="bi bi-book me-1"></i>Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="/registrations"><i class="bi bi-journal-check me-1"></i>Registrations</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/students">Students</a></li>
+                    <li class="breadcrumb-item active">Add New Student</li>
+                </ol>
+            </nav>
+
+            <!-- Error Alert -->
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i><span th:text="${errorMessage}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div class="card form-card">
+                <div class="card-header bg-primary text-white rounded-top py-3">
+                    <h5 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Add New Student</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/students/add}" th:object="${student}" method="post" novalidate>
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" id="name" th:field="*{name}"
+                                   class="form-control" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'"
+                                   placeholder="e.g. Jane Doe">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" id="email" th:field="*{email}"
+                                   class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                                   placeholder="e.g. jane.doe@university.ac.ke">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+
+                        <!-- Program -->
+                        <div class="mb-3">
+                            <label for="program" class="form-label fw-semibold">Program <span class="text-danger">*</span></label>
+                            <select id="program" th:field="*{program}"
+                                    class="form-select" th:classappend="${#fields.hasErrors('program')} ? 'is-invalid'">
+                                <option value="">-- Select Program --</option>
+                                <option value="BSc Computer Science">BSc Computer Science</option>
+                                <option value="BSc Information Technology">BSc Information Technology</option>
+                                <option value="BSc Software Engineering">BSc Software Engineering</option>
+                                <option value="BSc Data Science">BSc Data Science</option>
+                                <option value="BSc Electrical Engineering">BSc Electrical Engineering</option>
+                                <option value="BCom Business Administration">BCom Business Administration</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('program')}" th:errors="*{program}"></div>
+                        </div>
+
+                        <!-- Year of Study -->
+                        <div class="mb-4">
+                            <label for="yearOfStudy" class="form-label fw-semibold">Year of Study <span class="text-danger">*</span></label>
+                            <select id="yearOfStudy" th:field="*{yearOfStudy}"
+                                    class="form-select" th:classappend="${#fields.hasErrors('yearOfStudy')} ? 'is-invalid'">
+                                <option value="">-- Select Year --</option>
+                                <option value="1">Year 1</option>
+                                <option value="2">Year 2</option>
+                                <option value="3">Year 3</option>
+                                <option value="4">Year 4</option>
+                                <option value="5">Year 5</option>
+                                <option value="6">Year 6</option>
+                            </select>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('yearOfStudy')}" th:errors="*{yearOfStudy}"></div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-check-circle me-1"></i>Save Student
+                            </button>
+                            <a href="/students" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-x-circle me-1"></i>Cancel
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
