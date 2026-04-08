@@ -2,9 +2,7 @@
 
 **Course:** COMP467 – Advanced Web Applications Programming  
 **Technologies:** Spring Boot · Spring MVC · Spring Data JPA · Thymeleaf · H2 · Bootstrap 5 
-* Wafula Nelson CS/MK/1218/09/23 
-* Ellis Chege CS/MK/0986/09/23
-
+* Morghan Machogu CS/MK/0986/09/23
 ---
 
 ## Project Description
